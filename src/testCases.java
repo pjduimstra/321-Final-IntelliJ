@@ -26,7 +26,7 @@ public class testCases {
     // -------------------------------------------------------------------
 
     @Test
-    public void testIsGameOver() {
+    public void testIsGameOver() throws Exception {
         assertEquals(game.isGameOver(), false);
         for (int i = 0; i < 13; i++) {
             game.setScoreAt(i, 0);
@@ -171,6 +171,5 @@ public class testCases {
     // -------------------------------------------------------------------
     // Graph Coverage Tests
     // -------------------------------------------------------------------
-
 
 }

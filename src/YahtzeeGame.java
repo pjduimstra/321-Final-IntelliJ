@@ -310,12 +310,14 @@ public class YahtzeeGame {
         return stringList.indexOf(input);
     }
 
-    public void setScoreAt(int i, int num) {
-        scoreSheet[i] = num;
+    public void setScoreAt(int i, int num) throws Exception {
+        if (i < 0 || i > scoreSheet.length - 1) throw new Exception("Invalid index provided: " + i);
+        else scoreSheet[i] = num;
     }
 
-    public int getScoreAt(int i) {
-        return scoreSheet[i];
+    public int getScoreAt(int i) throws Exception {
+        if (i < 0 || i > scoreSheet.length - 1) throw new Exception("Invalid index provided: " + i);
+        else return scoreSheet[i];
     }
 
     public void addTotalScore(int num) {

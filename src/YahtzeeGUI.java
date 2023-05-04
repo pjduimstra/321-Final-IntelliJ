@@ -6,12 +6,11 @@ import java.awt.event.*;
 
 /**
  * @author PJ Duimstra
- *         Copyright 2023 PJ Duimstra
- *         CSE 321 Final Project
- *         Dr. Goodman
- *
- *         GUI coded as part of the final project for
- *         CSE 321.
+ * Copyright 2023 PJ Duimstra
+ * CSE 321 Final Project
+ * Dr. Goodman
+ * <p>
+ * GUI coded as part of the final project for CSE 321.
  */
 
 public class YahtzeeGUI {
@@ -142,17 +141,30 @@ public class YahtzeeGUI {
                 if (!game.isGameOver()) {
                     rollDice();
                 } else {
-                    if (clicks == 0) {
-                        addBonus();
-                        clicks++;
-                        rollButton.setText("Game Over! Please click again to start a new game");
-                    } else {
-                        resetGame(false);
-                    }
+                    resetGame(false);
                 }
             }
         });
         frame.add(rollButton, BorderLayout.SOUTH);
+    }
+
+    public static void resetGame(boolean start) {
+        if (!start) {
+            ui.end();
+        }
+        ui = new YahtzeeGUI();
+        ui.start();
+        ui.hideDice();
+    }
+
+    /**
+     * Main method
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        // Create the UI and start the game
+        resetGame(true);
     }
 
     /**
@@ -197,26 +209,41 @@ public class YahtzeeGUI {
 
                     int categoryIndex = game.returnCategoryIndex(selection.getText());
                     if (categoryIndex == 11) {
-                        scoreLabels[categoryIndex]
-                                .setText(Integer.toString(Integer.parseInt(scoreLabels[categoryIndex].getText())
+                        scoreLabels[categoryIndex].setText(
+                                Integer.toString(Integer.parseInt(scoreLabels[categoryIndex].getText())
                                         + game.calculateScore(categoryIndex + 1)));
-                        game.setScoreAt(categoryIndex,
-                                game.getScoreAt(categoryIndex) + game.calculateScore(categoryIndex + 1));
+                        try {
+                            game.setScoreAt(
+                                    categoryIndex, game.getScoreAt(categoryIndex)
+                                            + game.calculateScore(categoryIndex + 1));
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                     } else {
-                        scoreLabels[categoryIndex].setText(Integer.toString(game.calculateScore(categoryIndex + 1)));
-                        game.setScoreAt(categoryIndex, game.calculateScore(categoryIndex + 1));
+                        scoreLabels[categoryIndex].setText(
+                                Integer.toString(game.calculateScore(categoryIndex + 1)));
+                        try {
+                            game.setScoreAt(categoryIndex, game.calculateScore(categoryIndex + 1));
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
 
                     // Update total score label and instance variable
                     scoreLabels[13].setText(Integer.toString(
-                            Integer.parseInt(scoreLabels[13].getText()) + game.calculateScore(categoryIndex + 1)));
+                            Integer.parseInt(scoreLabels[13].getText())
+                                    + game.calculateScore(categoryIndex + 1)));
                     game.addTotalScore(game.calculateScore(categoryIndex + 1));
 
                     // Add score to scored to prevent scoring twice
                     if (categoryIndex != 11) {
                         scored.add(scoreLabels[categoryIndex]);
                     }
-                    game.setScoreAt(categoryIndex, game.calculateScore(categoryIndex + 1));
+                    try {
+                        game.setScoreAt(categoryIndex, game.calculateScore(categoryIndex + 1));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     selection.setBackground(Color.blue);
                     selection.setForeground(Color.white);
 
@@ -233,26 +260,34 @@ public class YahtzeeGUI {
                     game.setRollsLeft(3);
 
                     // Update the roll button text
-                    rollButton.setText("Roll (" + game.getRollsLeft() + ")");
+                    if (!game.isGameOver()) {
+                        rollButton.setText("Roll (" + game.getRollsLeft() + ")");
+                    } else {
+                        rollButton.setText("GAME OVER! Click to reset");
+                    }
+
                 } else {
                     // Highlight roll button with score instructions
                     rollButton.setBackground(Color.orange);
                 }
             }
-
-        } else {
-            // Game is over, calculate bonuses and reset the tables when user clicks the
-            // roll button again.
-            rollButton.setText("GAME OVER! Click to reset");
         }
     }
 
     public void addBonus() {
         int topSection = 0;
-        int numBonusYahtzee = (game.getScoreAt(11) % 5) - 1;
-
+        int numBonusYahtzee = 0;
+        try {
+            numBonusYahtzee = (game.getScoreAt(11) % 5) - 1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         for (int i = 0; i < 6; i++) {
-            topSection += game.getScoreAt(i);
+            try {
+                topSection += game.getScoreAt(i);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         if (topSection >= 63) {
@@ -296,22 +331,5 @@ public class YahtzeeGUI {
 
     public void end() {
         frame.setVisible(false);
-    }
-
-    public static void resetGame(boolean start) {
-        if (!start) { ui.end(); }
-        ui = new YahtzeeGUI();
-        ui.start();
-        ui.hideDice();
-    }
-
-    /**
-     * Main method
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        // Create the UI and start the game
-        resetGame(true);
     }
 }

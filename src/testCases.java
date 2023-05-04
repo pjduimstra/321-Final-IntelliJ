@@ -1,14 +1,16 @@
 import org.junit.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class testCases {
 
     private YahtzeeGame game;
 
-    // -------------------------------------------------------------------
-    // Setup/Takedown methods
-    // -------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------
+     * Setup/Takedown methods
+     * -------------------------------------------------------------------
+     */
 
     @Before
     public void setUp() throws Exception {
@@ -20,17 +22,27 @@ public class testCases {
         game = null;
     }
 
-
-    // -------------------------------------------------------------------
-    // Logic  Coverage Tests
-    // -------------------------------------------------------------------
+    /**
+     * -------------------------------------------------------------------
+     * Logic and Graph Coverage Tests
+     * -------------------------------------------------------------------
+     */
 
     @Test
     public void testIsGameOver() throws Exception {
+        // Graph Path 1
         assertEquals(game.isGameOver(), false);
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 6; i++) {
             game.setScoreAt(i, 0);
         }
+
+        // Graph Path 2
+        assertEquals(game.isGameOver(), false);
+        for (int i = 6; i < 13; i++) {
+            game.setScoreAt(i, 0);
+        }
+
+        // Graph Path 3
         assertEquals(game.isGameOver(), true);
     }
 
@@ -82,12 +94,6 @@ public class testCases {
         assertEquals(game.calculateScore(6), 18);
     }
 
-    /**
-     * Tests not only the scoring method for three of a kind, but also
-     * the helper method to determine if the counts of dice indicate
-     * a three of a kind is present.
-     */
-
     @Test
     public void testScoreTOK() {
         game.setDice(new int[] {4, 3, 2, 3, 4});
@@ -95,12 +101,6 @@ public class testCases {
         game.setDice(new int[] {5, 5, 5, 6, 6});
         assertEquals(game.calculateScore(7), 27);
     }
-
-    /**
-     * Tests not only the scoring method for four of a kind, but also
-     * the helper method to determine if the counts of dice indicate
-     * a four of a kind is present.
-     */
 
     @Test
     public void testScoreFOK() {
@@ -110,11 +110,14 @@ public class testCases {
         assertEquals(game.calculateScore(8), 26);
     }
 
-    /**
-     * Tests not only the scoring method for Full House, but also
-     * the helper method to determine if the counts of dice indicate
-     * a full house is present.
-     */
+    @Test
+    public void testIsFullHouse() {
+        game.setDice(new int[] {4, 3, 2, 3, 4});
+        assertFalse(game.isFullHouse());
+        game.setDice(new int[] {2, 2, 3, 3, 3});
+        assertTrue(game.isFullHouse());
+    }
+
     @Test
     public void testFullHouse() {
         game.setDice(new int[] {4, 3, 2, 3, 4});
@@ -123,11 +126,14 @@ public class testCases {
         assertEquals(game.calculateScore(9), 25);
     }
 
-    /**
-     * Tests not only the scoring method for small straight, but also
-     * the helper method to determine if the counts of dice indicate
-     * a small straight is present.
-     */
+    @Test
+    public void testIsSmallStaight() {
+        game.setDice(new int[] {4, 3, 2, 3, 4});
+        assertFalse(game.isSmallStraight());
+        game.setDice(new int[] {1, 2, 3, 4, 3});
+        assertTrue(game.isSmallStraight());
+    }
+
     @Test
     public void testSmallStaight() {
         game.setDice(new int[] {4, 3, 2, 3, 4});
@@ -136,11 +142,14 @@ public class testCases {
         assertEquals(game.calculateScore(10), 30);
     }
 
-    /**
-     * Tests not only the scoring method for large straight, but also
-     * the helper method to determine if the counts of dice indicate
-     * a large straight is present.
-     */
+    @Test
+    public void testIsLargeStaight() {
+        game.setDice(new int[] {4, 3, 2, 3, 4});
+        assertFalse(game.isLargeStraight());
+        game.setDice(new int[] {1, 2, 3, 4, 5});
+        assertTrue(game.isLargeStraight());
+    }
+
     @Test
     public void testLargeStaight() {
         game.setDice(new int[] {4, 3, 2, 3, 4});
@@ -149,11 +158,14 @@ public class testCases {
         assertEquals(game.calculateScore(11), 40);
     }
 
-    /**
-     * Tests not only the scoring method for yahtzee, but also
-     * the helper method to determine if the counts of dice indicate
-     * a yahtzee is present.
-     */
+    @Test
+    public void testIsYahtzee() {
+        game.setDice(new int[] {4, 3, 2, 3, 4});
+        assertFalse(game.isYahtzee());
+        game.setDice(new int[] {1, 1, 1, 1, 1});
+        assertTrue(game.isYahtzee());
+    }
+
     @Test
     public void testYahtzee() {
         game.setDice(new int[] {4, 3, 2, 3, 4});
@@ -167,9 +179,4 @@ public class testCases {
         game.setDice(new int[] {1, 2, 3, 4, 3});
         assertEquals(game.calculateScore(13), 13);
     }
-
-    // -------------------------------------------------------------------
-    // Graph Coverage Tests
-    // -------------------------------------------------------------------
-
 }

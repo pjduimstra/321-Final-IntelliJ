@@ -156,7 +156,7 @@ public class YahtzeeGame {
      * @return the boolean value indicating whether the dice are in the full house
      *         category
      */
-    private boolean isFullHouse() {
+    public boolean isFullHouse() {
         // Check if the dice have a full house
         int[] counts = getCounts();
         boolean twoCount = false;
@@ -176,7 +176,7 @@ public class YahtzeeGame {
      *
      * @return the boolean value indicating if there is a small straight
      */
-    private boolean isSmallStraight() {
+    public boolean isSmallStraight() {
         // Check if the dice have a small straight
         int[] counts = getCounts();
         return (counts[1] >= 1 && counts[2] >= 1 && counts[3] >= 1 && counts[4] >= 1)
@@ -189,7 +189,7 @@ public class YahtzeeGame {
      *
      * @return the boolean value indicating if there is a large straight
      */
-    private boolean isLargeStraight() {
+    public boolean isLargeStraight() {
         // Check if the dice have a large straight
         int[] counts = getCounts();
         return (counts[1] == 1 && counts[2] == 1 && counts[3] == 1 && counts[4] == 1 && counts[5] == 1)
@@ -201,7 +201,7 @@ public class YahtzeeGame {
      *
      * @return the boolean value indicating if there is a yahtzee
      */
-    private boolean isYahtzee() {
+    public boolean isYahtzee() {
         // Check if the dice have a Yahtzee
         int[] counts = getCounts();
         for (int count : counts) {

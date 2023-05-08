@@ -2,12 +2,10 @@ import java.util.*;
 
 /**
  * @author PJ Duimstra
- *         Copyright 2023 PJ Duimstra
- *         CSE 321 Final Project
- *         Dr. Goodman
- *
- *         Logical functions associated with the YahtzeeGame GUI
- *         coded for the final project of CSE 321.
+ * Copyright 2023 PJ Duimstra
+ * CSE 321 Final Project
+ * Dr. Goodman
+ * Logical functions associated with the YahtzeeGame GUI coded for the final project of CSE 321.
  */
 
 public class YahtzeeGame {
@@ -252,7 +250,7 @@ public class YahtzeeGame {
      * @return the integer array for the current scores of the game
      */
     public int[] getScoreSheet() {
-        // Get the current score sheet
+        // Get the current scoresheet
         return scoreSheet;
     }
 
@@ -305,31 +303,56 @@ public class YahtzeeGame {
         rollsLeft = rolls;
     }
 
+    /**
+     * Function to return an index given a category string
+     * @param input the string to be searched for in CATEGORIES
+     * @return the index of input in CATEGORIES
+     */
     public int returnCategoryIndex(String input) {
         List<String> stringList = new ArrayList<String>(Arrays.asList(CATEGORIES));
         return stringList.indexOf(input);
     }
 
+    /**
+     * Function to set the score at a given index in the scoresheet
+     * @param i the index to be updated
+     * @param num the number to be placed at index i
+     * @throws Exception if the index provided is invalid
+     */
     public void setScoreAt(int i, int num) throws Exception {
         if (i < 0 || i > scoreSheet.length - 1) throw new Exception("Invalid index provided: " + i);
         else scoreSheet[i] = num;
     }
 
+    /**
+     * Function to find and return the score at a given index in the scoresheet
+     * @param i the index to be retrieved
+     * @return the score at index i
+     * @throws Exception if the index provided is invalid
+     */
     public int getScoreAt(int i) throws Exception {
         if (i < 0 || i > scoreSheet.length - 1) throw new Exception("Invalid index provided: " + i);
         else return scoreSheet[i];
     }
 
+    /**
+     * Helper method to update the total score
+     * @param num the amount to be added to the total score
+     */
     public void addTotalScore(int num) {
         totalScore += num;
     }
 
+    /**
+     * Helper method to return the current total score
+     * @return the current total score of the Yahtzee game
+     */
     public int getTotalScore() {
         return totalScore;
     }
 
     /**
-     * Testing function to set dice
+     * Testing function to set dice to predetermined values
      * @param newDice the new array to be used.
      */
     public void setDice(int[] newDice) {

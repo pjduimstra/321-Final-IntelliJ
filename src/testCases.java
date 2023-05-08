@@ -2,6 +2,20 @@ import org.junit.*;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author PJ Duimstra
+ * Copyright 2023 PJ Duimstra
+ * Test cases written for CSE 321 Final Project for Dr. Goodman, Spring 2023.
+ * Test cases were developed for graph and logic coverage and inputs were determined
+ * using input space partitioning.
+ *
+ * Contributors:
+ * Logic Coverage: Michael Hoffman
+ * Graph Coverage: Sharon Corwin
+ * Input Space Partitioning: Jim Cai
+ */
+
+
 public class testCases {
 
     private YahtzeeGame game;
@@ -24,7 +38,8 @@ public class testCases {
 
     /**
      * -------------------------------------------------------------------
-     * Logic and Graph Coverage Tests
+     * Logic and Graph Coverage Tests implemented using information from
+     * Input Space Partitioning Tests evaluation.
      * -------------------------------------------------------------------
      */
 

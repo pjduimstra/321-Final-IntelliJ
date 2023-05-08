@@ -9,7 +9,7 @@ import java.awt.event.*;
  * Copyright 2023 PJ Duimstra
  * CSE 321 Final Project
  * Dr. Goodman
- * <p>
+ *
  * GUI coded as part of the final project for CSE 321.
  */
 
